@@ -1,0 +1,13 @@
+# User-specific stuff:
+.idea
+
+# Dependency directories
+node_modules
+package-lock.json
+*.log
+*.gz
+
+# OS X
+.DS_Store*
+Icon?
+._*

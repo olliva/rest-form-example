@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+</head>
+<body>
+  <h1>Index page</h1>
+  <h2>POST form</h2>
+  <form action="/register" method="post">
+    <input type="text" name="userName">
+    <input type="submit" value="submit">
+  </form>
+
+  <h2>Create Bear Form</h2>
+  <form action="/api/bears" method="post">
+    <label for="bearId">bear_id</label>
+    <input type="text" name="bearId">
+    <label for="bearName">bear_name</label>
+    <input type="text" name="bearName">
+    <input type="submit" value="Create Bear">
+  </form>
+
+  <h2>Get Bear By Id Form</h2>
+  <form action="/api/bears" method="post" id="getBear">
+    <input type="text" name="bearId">
+    <input type="submit" value="Get Bear">
+    <div>Get Bear Name: <span id="getBearName"></span></div>
+  </form>
+
+  <script type="text/javascript">
+    var createBearForm = document.getElementById('getBear');
+
+    createBearForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+      var getBearId = createBearForm.elements["bearId"].value;
+
+      if (getBearId) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/api/bears/' + getBearId, true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send();
+
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+            document.getElementById('getBearName').innerText = xhr.responseText;
+          }
+        }
+      }
+    }, false);
+  </script>
+
+  <h2>Get All Bears Form</h2>
+  <form action="/api/bears" method="get" id="getBears">
+    <input type="submit" value="Get Bears">
+    <div>Get Bear Name: <span id="getBearNames"></span></div>
+  </form>
+
+  <script type="text/javascript">
+    var getBearsForm = document.getElementById('getBears');
+
+    getBearsForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', '/api/bears', true);
+      xhr.send();
+
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+          document.getElementById('getBearNames').innerText = xhr.responseText;
+        }
+      }
+    }, false);
+  </script>
+
+</body>
+</html>
