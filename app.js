@@ -6,6 +6,7 @@ var path = require('path');
 var pug = require('pug');
 var router = express.Router();
 
+var port = process.env.PORT || 3000;
 var bears = {
   1: 'First Bear',
   2: 'Second Bear'
@@ -79,6 +80,6 @@ router.route('/bears/:bear_id')
       }
     })
 
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!'.green);
+app.listen(port, function () {
+  console.log(`Example app listening on port ${port}!`.green);
 });
