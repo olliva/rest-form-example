@@ -4,10 +4,14 @@ body, html {
 
     font-family: Verdana, arial;
 }
+.page-container {
+    margin: 0 20px;
+}
 
 input[type=submit],
 button {
     background: rgb(0, 150, 136);
     border: 0;
     color: #fff;
+    outline: none;
 }

@@ -10,8 +10,6 @@ module.exports = function(app) {
     let urlencodedParser = bodyParser.urlencoded({extended: false});
 
     app.post('/register', urlencodedParser, function(req, res) {
-      console.log('req body', req.body);
-      console.log('user name', req.param('userName'));
       if (!req.body) return req.sendStatus(400);
 
       res.render(

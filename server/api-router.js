@@ -3,11 +3,7 @@ var bodyParser = require('body-parser');
 var router = express.Router();
 // создаем парсер для данных application/x-www-form-urlencoded
 var urlencodedParser = bodyParser.urlencoded({extended: false});
-var Bear = require('./database.js');
-// var bears = {
-//   1: 'First Bear',
-//   2: 'Second Bear',
-// };
+var Bear = require('./schemas/bear.js');
 
 
 // middleware to use for all requests
@@ -21,10 +17,9 @@ router.route('/bears')
 
     // create a bear (accessed at POST http://localhost:8080/api/bears)
     .post(urlencodedParser, function(req, res) {
-        console.log('inside save', req.body.bearId, req.body.bearName, req.params);
-        if (req.body.bearId && req.body.bearName) {
+        if (req.body.bearType && req.body.bearName) {
             var newBear = Bear({
-                id: req.body.bearId,
+                type: req.body.bearType,
                 name: req.body.bearName
             });
 
@@ -39,39 +34,25 @@ router.route('/bears')
         }
     })
     .get(urlencodedParser, function(req, res) {
-        // let allBearsNames = Object.values(bears).join(', ');
-        //
-        // res.send(allBearsNames);
-
         Bear.find({}, function(err, bears) {
           if (err) throw err;
 
-          // object of all the users
-          console.log(bears);
-          res.send(bears)
+          var preparedBears = [].concat(bears)
+            .filter(item => item.type && item.name)
+            .map(item => `${item.name} - ${item.type}`).join(', ');
+
+          res.send(preparedBears);
         });
     });
 
-router.route('/bears/:bear_id')
+router.route('/bears/:bear_type')
     .get(function(req, res) {
-        Bear.find({ id: req.params.bear_id }, function(err, bear) {
+        Bear.find({ type: req.params.bear_type }, function(err, bear) {
           if (err) throw err;
 
-          // object of the user
-          res.send(bear);
-        });
-    })
-    .put(function(req, res) {
-        var newBear = Bear({
-            id: req.params.bear_id,
-            name: req.body.bearName
-        });
+          var bearsNames = [].concat(bear).map(item => item.name).join(', ');
 
-        // save the user
-        newBear.save(function(err) {
-            if (err) throw err;
-
-            res.send('Bear created');
+          res.send(bearsNames || 'No bears');
         });
     })
     .delete(function(req, res) {

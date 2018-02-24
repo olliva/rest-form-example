@@ -1,22 +1,20 @@
 (function() {
-    let createBearForm = document.getElementById('getBear');
+    let getBearByColorForm = document.getElementById('getBearByColor');
 
-    createBearForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      let getBearId = createBearForm.elements['bearId'].value;
+    getBearByColorForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        let getBearType = getBearByColorForm.elements['getBearType'].value;
 
-      if (getBearId) {
         let xhr = new XMLHttpRequest();
-        xhr.open('GET', '/api/bears/' + getBearId, true);
+        xhr.open('GET', '/api/bears/' + getBearType, true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.send();
 
         xhr.onreadystatechange = function() {
           if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-            document.getElementById('getBearName').innerText = xhr.responseText;
+            document.getElementById('getBearByColorName').innerText = xhr.responseText;
           }
         };
-      }
     }, false);
 
     let getBearsForm = document.getElementById('getBears');
