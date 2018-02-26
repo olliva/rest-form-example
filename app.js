@@ -4,7 +4,7 @@ require('colors');
 
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://mongo/test');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://mongo/test');
 
 var app = express();
 
