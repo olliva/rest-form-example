@@ -2,4 +2,4 @@
 
 ### Статус Travis
 
-https://api.travis-ci.org/olliva/rest-form-example.svg?branch=master
+[![Build Status](https://travis-ci.org/olliva/rest-form-example.svg?branch=master)](https://travis-ci.org/olliva/rest-form-example)
