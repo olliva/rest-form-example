@@ -1,5 +1,5 @@
-var bodyParser = require('body-parser');
-var path = require('path');
+const bodyParser = require('body-parser');
+const path = require('path');
 
 module.exports = function(app) {
     app.get('/', function(req, res) {
@@ -17,6 +17,6 @@ module.exports = function(app) {
             {userName: req.body.userName});
     });
 
-    let router = require('./api-router.js');
+    const router = require('./api-router.js');
     app.use('/api', router);
 };

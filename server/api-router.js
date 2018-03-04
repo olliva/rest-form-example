@@ -1,9 +1,9 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var router = express.Router();
+const express = require('express');
+const bodyParser = require('body-parser');
+const router = express.Router();
 // создаем парсер для данных application/x-www-form-urlencoded
-var urlencodedParser = bodyParser.urlencoded({extended: false});
-var Bear = require('./schemas/bear.js');
+const urlencodedParser = bodyParser.urlencoded({extended: false});
+const Bear = require('./schemas/bear.js');
 
 
 // middleware to use for all requests
@@ -18,9 +18,9 @@ router.route('/bears')
     // create a bear (accessed at POST http://localhost:8080/api/bears)
     .post(urlencodedParser, function(req, res) {
         if (req.body.bearType && req.body.bearName) {
-            var newBear = Bear({
+            const newBear = Bear({
                 type: req.body.bearType,
-                name: req.body.bearName
+                name: req.body.bearName,
             });
 
             // save the user
@@ -37,9 +37,9 @@ router.route('/bears')
         Bear.find({}, function(err, bears) {
           if (err) throw err;
 
-          var preparedBears = [].concat(bears)
-            .filter(item => item.type && item.name)
-            .map(item => `${item.name} - ${item.type}`).join(', ');
+          const preparedBears = [].concat(bears)
+            .filter((item) => item.type && item.name)
+            .map((item) => `${item.name} - ${item.type}`).join(', ');
 
           res.send(preparedBears);
         });
@@ -47,10 +47,10 @@ router.route('/bears')
 
 router.route('/bears/:bear_type')
     .get(function(req, res) {
-        Bear.find({ type: req.params.bear_type }, function(err, bear) {
+        Bear.find({type: req.params.bear_type}, function(err, bear) {
           if (err) throw err;
 
-          var bearsNames = [].concat(bear).map(item => item.name).join(', ');
+          const bearsNames = [].concat(bear).map((item) => item.name).join(', ');
 
           res.send(bearsNames || 'No bears');
         });
@@ -58,6 +58,7 @@ router.route('/bears/:bear_type')
     .delete(function(req, res) {
       if (bears[req.params.bear_id]) {
         delete bears[req.params.bear_id];
+
         res.send('ok');
       }
     });

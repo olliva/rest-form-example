@@ -4,6 +4,7 @@ module.exports = {
     },
     "extends": "google",
     "rules": {
-        "max-len": ["error", { "code": 120 }]
+        "max-len": ["error", { "code": 120 }],
+        "new-cap": 0
     }
 };

@@ -1,12 +1,12 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 // create a schema
-var bearSchema = new Schema({
+const bearSchema = new Schema({
   name: String,
-  type: String
+  type: String,
 });
 
-var Bear = mongoose.model('Bear', bearSchema);
+const Bear = mongoose.model('Bear', bearSchema);
 
 module.exports = Bear;
