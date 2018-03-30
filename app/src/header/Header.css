@@ -1,0 +1,14 @@
+.header {
+    background: red;
+
+    &:before {
+        content: '';
+        position: absolute;
+        transform: translateX(50%);
+    }
+}
+
+.header__text {
+    transform: translateX(50%);
+    color: #fff;
+}
